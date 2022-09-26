@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+<div class="pt-3 pb-2 mb-3 border-bottom m-20">
+  <h2 class="font-semibold text-lg">Add Project</h2>
+  <form [formGroup]="projectForm" (ngSubmit)="submitProjectData()" novalidate>
+    <div class="flex mt-4 items-center">
+      <label >Name(*)</label>
+      <input
+        type="text"
+        class="ml-2 p-1 border-2 border-gray-400 rounded-md"
+        formControlName="name"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="mt-4 px-4 py-2 cursor-pointer bg-blue-500 hover:bg-blue-600 rounded-lg text-white font-medium"
+      [disabled]="!projectForm.valid"
+    >
+      Add Project
+    </button>
+  </form>
+</div>

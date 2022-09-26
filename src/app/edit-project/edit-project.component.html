@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+<h1 class="mx-20 mt-28 text-lg font-medium">Edit Project Details</h1>
+<div class="mx-20 mt-10">
+  <form [formGroup]="editForm" (ngSubmit)="updateForm()" novalidate>
+    <div class="flex items-center">
+      <label class="mr-2">Name</label>
+      <input
+        type="text"
+        formControlName="name"
+        class="text-black px-2 py-1.5 border-2 border-gray-400 rounded-md"
+        required
+      />
+    </div>
+    <button
+      type="submit"
+      class="mt-4 px-4 py-2 bg-blue-500 rounded-md text-white font-medium"
+      [disabled]="!editForm.valid"
+    >
+      Update
+    </button>
+  </form>
+</div>

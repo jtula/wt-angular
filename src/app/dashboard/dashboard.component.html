@@ -1,0 +1,4 @@
+<div class="mx-16 my-24" *ngIf="authService.userData as user">
+  <app-navbar></app-navbar>
+  <h1 class="text-black font-bold text-2xl"> Welcome <span class="font-normal text-xl">{{ user.displayName || user.email  }}</span></h1>
+</div>
