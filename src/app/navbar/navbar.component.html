@@ -1,0 +1,67 @@
+<header
+      class="absolute top-0 left-0 z-40 flex w-full items-center bg-primary"
+    >
+      <div class="container">
+        <div class="relative -mx-4 py-4 md:py-0 flex items-center justify-between">
+          <div class="flex w-full items-center justify-between px-4">
+            <div>
+              <nav
+                class="absolute top-full hidden w-full max-w-[250px] rounded-lg bg-primary py-5 shadow-lg lg:static lg:block lg:w-full lg:max-w-full lg:bg-transparent lg:py-0 lg:px-4 lg:shadow-none xl:px-6"
+              >
+                <ul class="block lg:flex">
+                  <li class="group relative">
+                    <a
+                      routerLink="/"
+                      class="mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70"
+                    >
+                      Home
+                    </a>
+                  </li>
+                  
+                  <li class="group relative">
+                    <a
+                    routerLink="/projects"
+                      class="mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
+                    >
+                      Projects
+                    </a>
+                  </li>
+                  <li class="group relative">
+                    <a
+                    routerLink="/contact"
+                      class="mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
+                    >
+                      Contact
+                    </a>
+                  </li>
+                  <li *ngIf="authService.isLoggedIn" class="group relative">
+                    <a
+                    routerLink="/dashboard"
+                      class="mx-8 flex py-2 text-base text-dark group-hover:text-primary lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
+                    >
+                      Dashboard
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="justify-end pr-2 md:pr-16 sm:flex lg:pr-0">
+              <a
+                *ngIf="!authService.isLoggedIn"
+                routerLink="/login"
+                class="bg-secondary rounded-lg my-2 md:my-0 py-3 px-7 text-base font-medium text-white hover:opacity-70"
+                >
+                Sign In
+              </a>
+              <button
+              *ngIf="authService.isLoggedIn"
+              (click)="authService.logout()"
+                class="bg-secondary rounded-lg my-2 md:my-0 py-3 px-7 text-base font-medium text-white hover:opacity-70"
+              >
+                Logout
+          </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
