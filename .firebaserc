@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "wt-angular-8d3ea": {
+      "hosting": {
+        "wt-angular": [
+          "wt-angular-8d3ea"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "wt-angular-8d3ea"
+  }
+}
