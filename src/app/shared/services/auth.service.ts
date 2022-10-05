@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   userData: any;
   loading: boolean = false;
+  redirectUrl: string | null = null;
 
   constructor(
     public afs: AngularFirestore,
@@ -24,7 +25,7 @@ export class AuthService {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        localStorage.setItem('user', JSON.stringify(user));
         JSON.parse(localStorage.getItem('user')!);
       } else {
         localStorage.setItem('user', 'null');
@@ -38,11 +39,7 @@ export class AuthService {
       const result = await this.afAuth
         .signInWithEmailAndPassword(email, password);
       this.setUserData(result.user);
-      this.afAuth.authState.subscribe((user_1) => {
-        if (user_1) {
-          this.router.navigate(['dashboard']);
-        }
-      });
+      this.afAuth.authState.subscribe();
     } catch (error: any) {
       window.alert(error.message);
     }
@@ -54,13 +51,19 @@ export class AuthService {
     
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified === true ? true : false;
+    return user !== null && user.emailVerified !== false ? true : false;
   }
 
   
   async googleAuth() {
     return this.authLogin(new auth.GoogleAuthProvider()).then(() => {
-      this.router.navigate(['projects']);
+      if (this.redirectUrl) {
+        console.log(this.redirectUrl)
+        this.router.navigate([this.redirectUrl]);
+        this.redirectUrl = null;
+      } else {
+        this.router.navigate(['dashboard']);
+      }
     });
   }
   
@@ -69,15 +72,14 @@ export class AuthService {
     try {
       const result = await this.afAuth
         .signInWithPopup(provider);
-      this.router.navigate(['dashboard']);
-      this.setUserData(result.user);
+        await this.setUserData(result.user);
     } catch (error) {
       window.alert(error);
     }
     this.loading = false;
   }
 
-  setUserData(user: any) {
+  async setUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );

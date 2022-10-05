@@ -9,6 +9,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'projects', pathMatch: 'full' },
   { path: 'login', title: 'Login', component: LoginComponent },
   { path: 'projects', title: 'Projects', component: ProjectsComponent, canActivate: [AuthGuard] },
   { path: 'contact', title: 'Contact Us', component: ContactComponent  },
